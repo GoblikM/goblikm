@@ -47,8 +47,14 @@ const WordlePage = () => {
     <Layout title="Wordle">
       <div className="flex flex-col items-center">
         <p className="mt-3 text-base sm:text-lg text-slate-500 text-center max-w-80">
-          Wordle is a web-based word game created and developed by Welsh
-          software engineer Josh Wardle. Guess the word in 6 attempts.
+          <span className="italic text-sm">
+            Wordle is a web-based word game created and developed by Welsh
+            software engineer Josh Wardle.
+          </span>
+          <p className="pt-3">
+            {" "}
+            <strong>Guess the word in 5 attempts.</strong>
+          </p>
         </p>
         <div className="mt-10">
           {guesses.map((guess, index) => (
