@@ -14,7 +14,9 @@ const Layout = ({
     <>
       <Navbar />
       {title && (
-        <h1 className="text-center text-4xl text-primary-400 mt-10">{title}</h1>
+        <h1 className="text-center text-2xl sm:text-3xl md:text-4xl text-primary-400 mt-10">
+          {title}
+        </h1>
       )}
       <div className={`grid justify-center items-center ${className}`}>
         {children}
