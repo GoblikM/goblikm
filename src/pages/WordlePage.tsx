@@ -1,0 +1,122 @@
+import { useEffect, useState } from "react";
+import Layout from "./Layout";
+import { motion } from "framer-motion";
+
+const MAX_ATTEMPTS = 5;
+
+const WordlePage = () => {
+  const [guesses, setGuesses] = useState(["", "", "", "", ""]);
+  const [currentRow, setCurrentRow] = useState(0);
+  const [currentGuess, setCurrentGuess] = useState("");
+  const [word, setWord] = useState("APPLE");
+
+  /**
+   * Handles the keydown event for the Wordle game.
+   *
+   * @param {KeyboardEvent} e - The keyboard event object.
+   */
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (currentRow >= MAX_ATTEMPTS) {
+      return;
+    }
+
+    if (e.key === "Enter" && currentGuess.length === 5) {
+      const newGuesses = [...guesses];
+      newGuesses[currentRow] = currentGuess.toUpperCase();
+      setGuesses(newGuesses);
+      setCurrentGuess("");
+      setCurrentRow(currentRow + 1);
+    } else if (e.key === "Backspace") {
+      setCurrentGuess(currentGuess.slice(0, -1));
+    } else if (/^[a-zA-Z]$/.test(e.key) && currentGuess.length < 5) {
+      setCurrentGuess(currentGuess + e.key.toUpperCase());
+      console.log(guesses);
+      console.log(currentRow);
+      console.log(currentGuess);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [currentGuess, currentRow]);
+
+  return (
+    <Layout title="Wordle">
+      <div className="flex flex-col items-center">
+        <p className="mt-3 text-base sm:text-lg text-slate-500 text-center max-w-80">
+          Wordle is a web-based word game created and developed by Welsh
+          software engineer Josh Wardle. Guess the word in 6 attempts.
+        </p>
+        <div className="mt-10">
+          {guesses.map((guess, index) => (
+            <Row
+              key={index}
+              guess={index === currentRow ? currentGuess : guess}
+              word={word}
+              isActiveRow={index === currentRow}
+              isEvaluated={index < currentRow}
+            />
+          ))}
+        </div>
+      </div>
+    </Layout>
+  );
+};
+
+export default WordlePage;
+
+const Row = ({
+  guess,
+  word,
+  isActiveRow,
+  isEvaluated,
+}: {
+  guess: string;
+  word: string;
+  isActiveRow: boolean;
+  isEvaluated: boolean;
+}) => {
+  const tiles = [];
+  for (let i = 0; i < 5; i++) {
+    const char = guess[i] || "";
+    let className =
+      "tile border w-16 h-16 flex items-center justify-center text-2xl font-bold";
+    if (isActiveRow && i === guess.length) {
+      className += " border-white"; // Active tile
+    } else if (isEvaluated) {
+      // Evaluate only if the guess is complete
+      if (char === word[i]) {
+        className += " bg-green-500 text-white"; // Correct letter in correct place
+      } else if (word.includes(char)) {
+        className += " bg-yellow-500 text-white"; // Correct letter in wrong place
+      } else {
+        className += " bg-gray-500 text-white"; // Incorrect letter
+      }
+      tiles.push(
+        // Animate the evaluation of the guess
+        <motion.div
+          key={i}
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5, delay: i * 0.5 }}
+          className={className}
+        >
+          {char}
+        </motion.div>
+      );
+    }
+    // Display the current guess as it is being typed out by the user
+    if (!isEvaluated) {
+      tiles.push(
+        <div key={i} className={className}>
+          {char}
+        </div>
+      );
+    }
+    console.log(tiles);
+  }
+  return <div className="grid grid-cols-5 gap-3">{tiles}</div>;
+};

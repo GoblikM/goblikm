@@ -4,6 +4,12 @@
 
 @layer base {
   body {
-    @apply bg-slate-800 font-mono px-4;
+    @apply bg-slate-800 font-mono px-4 min-h-full;
+  }
+}
+
+@layer components {
+  .tile {
+    @apply w-16 h-16 border border-slate-500 text-4xl text-slate-300 flex justify-center items-center mt-3 uppercase;
   }
 }

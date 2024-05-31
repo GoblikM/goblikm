@@ -11,6 +11,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SpeedTypePage from "./pages/SpeedTypePage";
 import AboutPage from "./pages/AboutPage";
 import HomePage from "./pages/HomePage";
+import WordlePage from "./pages/WordlePage";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/speedtype" element={<SpeedTypePage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/wordle" element={<WordlePage />} />
       </Routes>
     </BrowserRouter>
   );
