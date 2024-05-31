@@ -84,16 +84,16 @@ const Row = ({
     const char = guess[i] || "";
     let className =
       "tile border w-16 h-16 flex items-center justify-center text-2xl font-bold";
-    if (isActiveRow && i === guess.length) {
-      className += " border-white"; // Active tile
-    } else if (isEvaluated) {
+    if (char) className += " border-white";
+
+    if (isEvaluated) {
       // Evaluate only if the guess is complete
       if (char === word[i]) {
-        className += " bg-green-500 text-white"; // Correct letter in correct place
+        className += " bg-green-500 text-white border-0"; // Correct letter in correct place
       } else if (word.includes(char)) {
-        className += " bg-yellow-500 text-white"; // Correct letter in wrong place
+        className += " bg-yellow-500 text-white border-0"; // Correct letter in wrong place
       } else {
-        className += " bg-gray-500 text-white"; // Incorrect letter
+        className += " bg-gray-500 text-white border-0"; // Incorrect letter
       }
       tiles.push(
         // Animate the evaluation of the guess
