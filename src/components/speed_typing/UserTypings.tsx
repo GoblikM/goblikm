@@ -19,7 +19,7 @@ export const UserTypings = ({ userInput, className, words }: Props) => {
           />
         );
       })}
-      <Caret />
+      <Caret  />
     </div>
   );
 };
