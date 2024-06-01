@@ -15,7 +15,7 @@ const SpeedTypePage = () => {
 
   return (
     <>
-      <Layout title="Speed typing game" className="tracking-wider">
+      <Layout title="Speed typing game" className="min-h-screen">
         <div>
           <p className="mt-3 text-base sm:text-lg text-slate-500 text-center">
             Type the words as fast as you can.
@@ -62,7 +62,7 @@ const SpeedTypePage = () => {
             onRestart={restart}
           />
           <Results
-            state={state}
+            state={"finish"}
             errors={errors}
             accurancyPercentage={calculateAccuracyPercentage(
               totalTyped,
@@ -87,7 +87,7 @@ export const WordsContainer = ({
   return (
     <div
       className={cn({
-        "relative max-w-4xl mt-3 text-2xl sm:text-3xl leading-relaxed break-all":
+        "relative max-w-4xl mt-3 text-2xl sm:text-3xl leading-relaxed break-all tracking-wider":
           true,
         "blur-sm": state === "finish",
       })}

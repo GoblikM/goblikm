@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Layout from "./Layout";
 import { motion } from "framer-motion";
+import Modal from "../components/shared/Modal";
 
 const MAX_ATTEMPTS = 5;
 
@@ -9,6 +10,12 @@ const WordlePage = () => {
   const [currentRow, setCurrentRow] = useState(0);
   const [currentGuess, setCurrentGuess] = useState("");
   const [word, setWord] = useState("APPLE");
+
+  const [isModalVisible, setIsModalVisible] = useState(true);
+
+  const handleModalClose = () => {
+    setIsModalVisible(false);
+  };
 
   /**
    * Handles the keydown event for the Wordle game.
@@ -44,31 +51,36 @@ const WordlePage = () => {
   }, [currentGuess, currentRow]);
 
   return (
-    <Layout title="Wordle">
-      <div className="flex flex-col items-center">
-        <p className="mt-3 text-base sm:text-lg text-slate-500 text-center max-w-80">
-          <span className="italic text-sm">
-            Wordle is a web-based word game created and developed by Welsh
-            software engineer Josh Wardle.
-          </span>
-          <p className="pt-3">
-            {" "}
-            <strong>Guess the word in 5 attempts.</strong>
+    <>
+      <Layout title="Wordle">
+        <div className="flex flex-col items-center">
+          <p className="mt-3 text-base sm:text-lg text-slate-500 text-center max-w-80">
+            <span className="italic text-sm">
+              Wordle is a web-based word game created and developed by Welsh
+              software engineer Josh Wardle.
+            </span>
+            <p className="pt-3">
+              {" "}
+              <strong>Guess the word in 5 attempts.</strong>
+            </p>
           </p>
-        </p>
-        <div className="mt-10">
-          {guesses.map((guess, index) => (
-            <Row
-              key={index}
-              guess={index === currentRow ? currentGuess : guess}
-              word={word}
-              isActiveRow={index === currentRow}
-              isEvaluated={index < currentRow}
-            />
-          ))}
+          <div className="mt-10">
+            {guesses.map((guess, index) => (
+              <Row
+                key={index}
+                guess={index === currentRow ? currentGuess : guess}
+                word={word}
+                isActiveRow={index === currentRow}
+                isEvaluated={index < currentRow}
+              />
+            ))}
+          </div>
+          <Modal onClose={handleModalClose} isVisible={isModalVisible}>
+            <Results />
+          </Modal>
         </div>
-      </div>
-    </Layout>
+      </Layout>
+    </>
   );
 };
 
@@ -125,4 +137,19 @@ const Row = ({
     console.log(tiles);
   }
   return <div className="grid grid-cols-5 gap-3">{tiles}</div>;
+};
+
+const Results = ({ className }: { className?: string }) => {
+  return (
+    <>
+      <motion.ul
+        className={`flex flex-col items-center text-primary-400 space-y-3 ${className}`}
+      >
+        <motion.li className="text-xl font-semibold">Results</motion.li>
+        <motion.li>Accurancy:</motion.li>
+        <motion.li className="text-red-500">Errors:</motion.li>
+        <motion.li>Typed:</motion.li>
+      </motion.ul>
+    </>
+  );
 };

@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-slate-800 font-mono px-4 min-h-full;
+    @apply bg-slate-800 font-mono;
   }
 }
 
