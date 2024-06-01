@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Layout from "./Layout";
 import { motion } from "framer-motion";
 import Modal from "../components/shared/Modal";
+import { time } from "console";
 
 const MAX_ATTEMPTS = 5;
 
@@ -10,8 +11,9 @@ const WordlePage = () => {
   const [currentRow, setCurrentRow] = useState(0);
   const [currentGuess, setCurrentGuess] = useState("");
   const [word, setWord] = useState("APPLE");
+  const [canType, setCanType] = useState(true);
 
-  const [isModalVisible, setIsModalVisible] = useState(true);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   /**
    * Handles the keydown event for the Wordle game.
@@ -19,7 +21,7 @@ const WordlePage = () => {
    * @param {KeyboardEvent} e - The keyboard event object.
    */
   const handleKeyDown = (e: KeyboardEvent) => {
-    if (currentRow >= MAX_ATTEMPTS) {
+    if (currentRow >= MAX_ATTEMPTS || !canType) {
       return;
     }
 
@@ -27,6 +29,12 @@ const WordlePage = () => {
       const newGuesses = [...guesses];
       newGuesses[currentRow] = currentGuess.toUpperCase();
       setGuesses(newGuesses);
+      if (currentGuess === word) {
+        setCanType(false);
+        setTimeout(() => {
+          setIsModalVisible(true);
+        }, 1500);
+      }
       setCurrentGuess("");
       setCurrentRow(currentRow + 1);
     } else if (e.key === "Backspace") {
@@ -112,13 +120,14 @@ const Row = ({
       } else {
         className += " bg-gray-500 text-white border-0"; // Incorrect letter
       }
+
       tiles.push(
         // Animate the evaluation of the guess
         <motion.div
           key={i}
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          transition={{ duration: 0.5, delay: i * 0.5 }}
+          transition={{ duration: 0.5, delay: i * 0.2 }}
           className={className}
         >
           {char}
