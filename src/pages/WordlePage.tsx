@@ -13,10 +13,6 @@ const WordlePage = () => {
 
   const [isModalVisible, setIsModalVisible] = useState(true);
 
-  const handleModalClose = () => {
-    setIsModalVisible(false);
-  };
-
   /**
    * Handles the keydown event for the Wordle game.
    *
@@ -75,7 +71,10 @@ const WordlePage = () => {
               />
             ))}
           </div>
-          <Modal onClose={handleModalClose} isVisible={isModalVisible}>
+          <Modal
+            onClose={() => setIsModalVisible(false)}
+            isVisible={isModalVisible}
+          >
             <Results />
           </Modal>
         </div>
