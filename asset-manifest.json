@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/goblikm/static/css/main.e4c21363.css",
-    "main.js": "/goblikm/static/js/main.fdf29b96.js",
+    "main.js": "/goblikm/static/js/main.98f5f5fb.js",
     "index.html": "/goblikm/index.html",
     "main.e4c21363.css.map": "/goblikm/static/css/main.e4c21363.css.map",
-    "main.fdf29b96.js.map": "/goblikm/static/js/main.fdf29b96.js.map"
+    "main.98f5f5fb.js.map": "/goblikm/static/js/main.98f5f5fb.js.map"
   },
   "entrypoints": [
     "static/css/main.e4c21363.css",
-    "static/js/main.fdf29b96.js"
+    "static/js/main.98f5f5fb.js"
   ]
 }
