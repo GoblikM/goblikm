@@ -7,7 +7,7 @@ import useEngine from "./hooks/speed_typing/useEngine";
 import { calculateAccuracyPercentage } from "./utils/helpers";
 import cn from "classnames";
 import Navbar from "./components/shared/Navbar";
-import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import SpeedTypePage from "./pages/SpeedTypePage";
 import AboutPage from "./pages/AboutPage";
 import HomePage from "./pages/HomePage";
@@ -15,14 +15,14 @@ import WordlePage from "./pages/WordlePage";
 
 const App = () => {
   return (
-    <HashRouter>
+    <>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/speedtype" element={<SpeedTypePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/wordle" element={<WordlePage />} />
       </Routes>
-    </HashRouter>
+    </>
   );
 };
 export default App;
